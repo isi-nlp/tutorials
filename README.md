@@ -16,6 +16,8 @@ How to use this repository
 
 1. git clone git@github.com:isi-nlp/tutorials.git tutorials   OR   git clone http://github.com/isi-nlp/tutorials tutorials
 2. cd tutorials
+3a. *If a technical handout*, cd technical
+3b. *If a non-technical, gradschool related handout*, cd gradschool
 3. cp original-location-of-your-tutorial descriptive-name-of-title_names-of-authors-if-any.extension
 4. git add  descriptive-name-of-title_names-of-authors-if-any.extension
 5. git commit -m 'quick description of the tutorial'
