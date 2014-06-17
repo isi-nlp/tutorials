@@ -31,4 +31,4 @@ If you have a tutorial request...
 ---------------------
 
 Email the MT mailing list (mt@mailman.isi.edu) requesting one.
-We can also start a list here of pending requests.
+We can also start a list of pending requests here.
