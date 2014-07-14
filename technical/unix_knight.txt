@@ -1,0 +1,544 @@
+
+=============================================================
+Linux commands for computational linguists
+Kevin Knight
+8/6/12
+=============================================================
+
+===== Creating files
+===== Viewing files
+===== Adding lines to a file
+===== Selecting lines from a file
+===== Modifying lines
+===== Breaking up lines
+===== Counting total lines
+===== Sorting lines
+===== Counting occurrences of lines
+===== Counting word frequencies
+===== Selecting sequences of lines
+===== Adding columns/fields
+===== Selecting columns/fields
+===== Reversing columns/fields
+===== Counting word-pair frequencies
+===== Counting word-triple frequencies
+
+=============================================================
+===== Creating files   
+
+Use text editor to create file1:
+
+   Canada's Finance Ministry and the Bank of England are
+jointly monitoring Olympia & York Developments Ltd.'s
+deteriorating financial condition, as a world-wide consortium
+of banks prepares for a massive restructuring of the
+company's sprawling portfolio.
+
+Use text editor to create file2:
+
+   "Collectively we want to take every step that we can to
+stabilize the financial situation," so it won't "unduly
+distort the financial markets," Canadian Finance Minister Don
+Mazankowski said outside the House of Commons in Ottawa.
+
+=============================================================
+===== Viewing files
+
+28% cat file1
+   Canada's Finance Ministry and the Bank of England are
+jointly monitoring Olympia & York Developments Ltd.'s
+deteriorating financial condition, as a world-wide consortium
+of banks prepares for a massive restructuring of the
+company's sprawling portfolio.
+
+=============================================================
+===== Adding lines to a file
+
+29% cat file2 >>file1
+30% cat file1
+   Canada's Finance Ministry and the Bank of England are
+jointly monitoring Olympia & York Developments Ltd.'s
+deteriorating financial condition, as a world-wide consortium
+of banks prepares for a massive restructuring of the
+company's sprawling portfolio.
+   "Collectively we want to take every step that we can to
+stabilize the financial situation," so it won't "unduly
+distort the financial markets," Canadian Finance Minister Don
+Mazankowski said outside the House of Commons in Ottawa.
+
+=============================================================
+===== Selecting lines from a file
+
+31% grep "of" file1
+   Canada's Finance Ministry and the Bank of England are
+of banks prepares for a massive restructuring of the
+Mazankowski said outside the House of Commons in Ottawa.
+
+145% grep -v "of" file1
+jointly monitoring Olympia & York Developments Ltd.'s
+deteriorating financial condition, as a world-wide consortium
+company's sprawling portfolio.
+   "Collectively we want to take every step that we can to
+stabilize the financial situation," so it won't "unduly
+distort the financial markets," Canadian Finance Minister Don
+
+31% grep '^of' file1
+of banks prepares for a massive restructuring of the
+
+142% grep ' to$' file1
+   "Collectively we want to take every step that we can to
+
+142% grep '\.$' file1      
+company's sprawling portfolio.
+Mazankowski said outside the House of Commons in Ottawa.
+
+    /* NOTE:  without the backslash, period matches any character */
+
+141% grep '.$' file1
+   Canada's Finance Ministry and the Bank of England are
+jointly monitoring Olympia & York Developments Ltd.'s
+deteriorating financial condition, as a world-wide consortium
+of banks prepares for a massive restructuring of the
+company's sprawling portfolio.
+   "Collectively we want to take every step that we can to
+stabilize the financial situation," so it won't "unduly
+distort the financial markets," Canadian Finance Minister Don
+Mazankowski said outside the House of Commons in Ottawa.
+
+=============================================================
+===== Modifying lines in a file
+
+37% sed 's/of/PREP/' <file1
+   Canada's Finance Ministry and the Bank PREP England are
+jointly monitoring Olympia & York Developments Ltd.'s
+deteriorating financial condition, as a world-wide consortium
+PREP banks prepares for a massive restructuring of the
+company's sprawling portfolio.
+   "Collectively we want to take every step that we can to
+stabilize the financial situation," so it won't "unduly
+distort the financial markets," Canadian Finance Minister Don
+Mazankowski said outside the House PREP Commons in Ottawa.
+
+34% sed 's/of/PREP/g' <file1
+   Canada's Finance Ministry and the Bank PREP England are
+jointly monitoring Olympia & York Developments Ltd.'s
+deteriorating financial condition, as a world-wide consortium
+PREP banks prepares for a massive restructuring PREP the
+company's sprawling portfolio.
+   "Collectively we want to take every step that we can to
+stabilize the financial situation," so it won't "unduly
+distort the financial markets," Canadian Finance Minister Don
+Mazankowski said outside the House PREP Commons in Ottawa.
+
+151% sed 's/\.$/ .../' < file1
+   Canada's Finance Ministry and the Bank of England are
+jointly monitoring Olympia & York Developments Ltd.'s
+deteriorating financial condition, as a world-wide consortium
+of banks prepares for a massive restructuring of the
+company's sprawling portfolio ...
+   "Collectively we want to take every step that we can to
+stabilize the financial situation," so it won't "unduly
+distort the financial markets," Canadian Finance Minister Don
+Mazankowski said outside the House of Commons in Ottawa ...
+
+=============================================================
+===== Breaking up lines in a file
+
+39% tr -sc 'A-Za-z' '\012' < file1 >file3
+40% cat file3
+
+Canada
+s
+Finance
+Ministry
+and
+the
+Bank
+of
+England
+are
+jointly
+monitoring
+Olympia
+York
+Developments
+Ltd
+s
+deteriorating
+financial
+condition
+as
+a
+world
+wide
+consortium
+of
+banks
+prepares
+for
+a
+massive
+restructuring
+of
+the
+company
+s
+sprawling
+portfolio
+Collectively
+we
+want
+to
+take
+every
+step
+that
+we
+can
+to
+stabilize
+the
+financial
+situation
+so
+it
+won
+t
+unduly
+distort
+the
+financial
+markets
+Canadian
+Finance
+Minister
+Don
+Mazankowski
+said
+outside
+the
+House
+of
+Commons
+in
+Ottawa
+
+=============================================================
+===== Counting total lines in a file
+
+41% wc file3
+     76      75     474 file3
+
+/* NOTE: 76 lines, 75 words, 474 characters */
+
+=============================================================
+===== Sorting lines in a file
+
+43% sort file3
+
+Bank
+Canada
+Canadian
+Collectively
+Commons
+Developments
+Don
+England
+Finance
+Finance
+House
+Ltd
+Mazankowski
+Minister
+Ministry
+Olympia
+Ottawa
+York
+a
+a
+and
+are
+as
+banks
+can
+company
+condition
+consortium
+deteriorating
+distort
+every
+financial
+financial
+financial
+for
+in
+it
+jointly
+markets
+massive
+monitoring
+of
+of
+of
+of
+outside
+portfolio
+prepares
+restructuring
+s
+s
+s
+said
+situation
+so
+sprawling
+stabilize
+step
+t
+take
+that
+the
+the
+the
+the
+the
+to
+to
+unduly
+want
+we
+we
+wide
+won
+world
+
+=============================================================
+===== Counting occurrences of lines
+===== Counting word frequencies in a file
+
+46% sort file3 | uniq -c | sort -r
+      5 the
+      4 of
+      3 s
+      3 financial
+      2 we
+      2 to
+      2 a
+      2 Finance
+      1 world
+      1 won
+      1 wide
+      1 want
+      1 unduly
+      1 that
+      1 take
+      1 t
+      1 step
+      1 stabilize
+      1 sprawling
+      1 so
+      1 situation
+      1 said
+      1 restructuring
+      1 prepares
+      1 portfolio
+      1 outside
+      1 monitoring
+      1 massive
+      1 markets
+      1 jointly
+      1 it
+      1 in
+      1 for
+      1 every
+      1 distort
+      1 deteriorating
+      1 consortium
+      1 condition
+      1 company
+      1 can
+      1 banks
+      1 as
+      1 are
+      1 and
+      1 York
+      1 Ottawa
+      1 Olympia
+      1 Ministry
+      1 Minister
+      1 Mazankowski
+      1 Ltd
+      1 House
+      1 England
+      1 Don
+      1 Developments
+      1 Commons
+      1 Collectively
+      1 Canadian
+      1 Canada
+      1 Bank
+      1 
+      
+=============================================================
+===== Selecting sequences of lines from a file
+
+47% head -2 file1
+   Canada's Finance Ministry and the Bank of England are
+jointly monitoring Olympia & York Developments Ltd.'s
+
+49% tail -2 file1
+distort the financial markets," Canadian Finance Minister Don
+Mazankowski said outside the House of Commons in Ottawa.
+
+50% tail --lines +2 file1
+jointly monitoring Olympia & York Developments Ltd.'s
+deteriorating financial condition, as a world-wide consortium
+of banks prepares for a massive restructuring of the
+company's sprawling portfolio.
+   "Collectively we want to take every step that we can to
+stabilize the financial situation," so it won't "unduly
+distort the financial markets," Canadian Finance Minister Don
+Mazankowski said outside the House of Commons in Ottawa.
+
+=============================================================
+===== Adding columns/fields to a file
+
+51% tail --lines +2 file3 >file4
+52% paste file3 file4 >file5
+53% cat file5 | head -8
+        Canada
+Canada  s
+s       Finance
+Finance Ministry
+Ministry        and
+and     the
+the     Bank
+Bank    of
+
+=============================================================
+===== Selecting columns/fields from a file
+
+131% awk '{print $2}' file5 | head -10 | tail -5
+the
+Bank
+of
+England
+are
+
+=============================================================
+===== Reversing columns/fields in a file
+
+132% awk '{print $2,$1}' file5 | head -10 | tail -5
+the and
+Bank the
+of Bank
+England of
+are England
+
+=============================================================
+===== Counting word-pair frequencies in a file
+
+54% sort file5 | uniq -c | sort -r
+      2 the     financial
+      1 world   wide
+      1 won     t
+      1 wide    consortium
+      1 we      want
+      1 we      can
+      1 want    to
+      1 unduly  distort
+      1 to      take
+      1 to      stabilize
+      1 the     company
+      1 the     House
+      1 the     Bank
+      1 that    we
+      1 take    every
+      1 t       unduly
+      1 step    that
+      1 stabilize       the
+      1 sprawling       portfolio
+      1 so      it
+      1 situation       so
+      1 said    outside
+      1 s       sprawling
+      1 s       deteriorating
+      1 s       Finance
+      1 restructuring   of
+      1 prepares        for
+      1 portfolio       Collectively
+      1 outside the
+      1 of      the
+      1 of      banks
+      1 of      England
+      1 of      Commons
+      1 monitoring      Olympia
+      1 massive restructuring
+      1 markets Canadian
+      1 jointly monitoring
+      1 it      won
+      1 in      Ottawa
+      1 for     a
+      1 financial       situation
+      1 financial       markets
+      1 financial       condition
+      1 every   step
+      1 distort the
+      1 deteriorating   financial
+      1 consortium      of
+      1 condition       as
+      1 company s
+      1 can     to
+      1 banks   prepares
+      1 as      a
+      1 are     jointly
+      1 and     the
+      1 a       world
+      1 a       massive
+      1 York    Developments
+      1 Ottawa  
+      1 Olympia York
+      1 Ministry        and
+      1 Minister        Don
+      1 Mazankowski     said
+      1 Ltd     s
+      1 House   of
+      1 Finance Ministry
+      1 Finance Minister
+      1 England are
+      1 Don     Mazankowski
+      1 Developments    Ltd
+      1 Commons in
+      1 Collectively    we
+      1 Canadian        Finance
+      1 Canada  s
+      1 Bank    of
+      1         Canada
+      
+=============================================================
+===== Counting word-triple frequencies in a file
+
+95% grep -v '^<' wsj_0324 | tr -sc "A-Za-z'" '\012' > file7
+96% tail --lines +2 file7 > file8
+97% tail --lines +3 file7 > file9
+98% paste file7 file8 file9 | sort | uniq -c | sort -r | grep -v '[A-Z]' | head -20
+     18 one     of      the
+     13 cents   a       share
+     12 is      expected        to
+     12 a       unit    of
+     11 to      million from
+     11 the     end     of
+     11 in      the     first
+     11 executive       vice    president
+     10 million from    million
+      9 the     two     companies
+      9 spokesman       said    the
+      9 said    it      will
+      9 rose    to      million
+      9 most    of      the
+      9 chief   executive       officer
+      9 as      well    as
+      8 said    the     company
+      8 president       and     chief
+      8 or      cents   a
+      8 or      a       share
+ 
