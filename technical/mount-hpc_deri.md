@@ -86,3 +86,4 @@ Assuming you saved your files, you can just delete the files in `~/sim/hpc` (or 
   Now if you type `ssh hpc` or `ssh hpc.usc.edu` ssh will interpret this as `ssh $HPC_USER@hpc-login3.usc.edu`
 
 * If you're having trouble, you can try contacting Aliya at `aderi@isi.edu`. You can also find more detailed and technical descriptions by starting [here](https://help.ubuntu.com/community/SSHFS).
+
