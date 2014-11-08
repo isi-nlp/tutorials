@@ -24,8 +24,8 @@ Note: your files are mounted, not copied over. This has a few benefits: For exam
 
 2. Also on your local machine, add yourself to the fuse group. 
 
-  * Linux: `sudo gpasswd -a $USER fuse`. You can find out your USER variable by typing `whoami`. After this step, you may need to restart your terminal or shell to register the change.
-  * Mac: System Preferences; Users & Groups; Little '+' button, next to "New Account" select 'Group'; Full name 'fuse'; select the group from the list, tick your account name
+  * (Linux) `sudo gpasswd -a $USER fuse`. You can find out your USER variable by typing `whoami`. After this step, you may need to restart your terminal or shell to register the change.
+  * (Mac) System Preferences; Users & Groups; Little '+' button, next to "New Account" select 'Group'; Full name 'fuse'; select the group from the list, tick your account name
 3. Make a folder where you want to mount your files. I'll call mine hpc. 
 
           mkdir ~/hpc
@@ -54,7 +54,7 @@ Note: your files are mounted, not copied over. This has a few benefits: For exam
 7. So you don't have to remember all those commands, let's add this to your `.bashrc`. 
 
             alias hpcmount='fusermount -u ~/hpc ; 
-            sshfs -o idmap=user $HPC_USER@hpc-login2.usc.edu:$HPC_DIR ~/hpc ; '
+            sshfs -o idmap=user $HPC_USER@hpc-login3.usc.edu:$HPC_DIR ~/hpc ; '
 
 
 8. Close and reopen your terminal. Type `hpcmount` and you will automatically unmount `~/hpc` (in case it was already mounted) and remount it. Congrats!
