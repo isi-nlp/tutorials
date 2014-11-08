@@ -77,7 +77,7 @@ Assuming you saved your files, you can just delete the files in `~/sim/hpc` (or 
 
       alias hpcssh='ssh $HPC_USER@hpc-login3.usc.edu ; '
 
-  SSH provides functionality to do this kind of thing directly. Add these lines to `.ssh/config` (on your user machine):
+  Alternatively, SSH provides functionality to do this kind of thing directly. Add these lines to `.ssh/config` (on your user machine):
 
       Host hpc hpc.usc.edu
       HostName hpc-login3.usc.edu
