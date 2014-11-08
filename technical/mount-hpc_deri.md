@@ -63,15 +63,15 @@ Note: your files are mounted, not copied over. This has a few benefits: For exam
 ### Some more notes
 
 
-* When you run a command from `~/sim/hpc` (your mounted folder), it will run on your local machine. That is, you cannot submit jobs to HPC from `~/sim/hpc`; if you have Python 2.7 running on your machine and Python 2.6 on HPC, running a script from `~/sim/hpc` will run Python 2.7.
+* When you run a command from `~/hpc` (your mounted folder), it will run on your local machine. That is, you cannot submit jobs to HPC from `~/hpc`; if you have Python 2.7 running on your machine and Python 2.6 on HPC, running a script from `~/hpc` will run Python 2.7.
 
-However, running major, data-intensive jobs on your `~/sim/hpc` **will** waste HPC CPU and slow everyone down due to data transfer across the network!  It's a good idea to open another terminal tab, SSH into HPC, and run and submit jobs from the terminal there.
+However, running major, data-intensive jobs on your `~/hpc` **will** waste HPC CPU and slow everyone down due to data transfer across the network!  It's a good idea to open another terminal tab, SSH into HPC, and run and submit jobs from the terminal there.
 
 In short: Your mounted folder is for editing, not for running code!
 
-* At some point you might turn off your computer without actually unmounting `~/sim/hpc`. If you leave an IDE open, it might get confused and try to save the open files in the (now empty) `~/sim/hpc` folder. The next time you run hpcmount, you will get a "nonempty" error.
+* At some point you might turn off your computer without actually unmounting `~/hpc`. If you leave an IDE open, it might get confused and try to save the open files in the (now empty) `~/hpc` folder. The next time you run hpcmount, you will get a "nonempty" error.
 
-Assuming you saved your files, you can just delete the files in `~/sim/hpc` (or even `~/sim/hpc` itself and `mkdir` again). But do doublecheck what you're deleting--if somehow you delete everything in `~/sim/hpc` while it's mounted, you will lose everything on HPC as well!
+Assuming you saved your files, you can just delete the files in `~/hpc` (or even `~/hpc` itself and `mkdir` again). But do doublecheck what you're deleting--if somehow you delete everything in `~/hpc` while it's mounted, you will lose everything on HPC as well!
 
 * It's useful to also alias your HPC SSHing as well. To use hpcssh from terminal, add this to your `.bashrc`:
 
