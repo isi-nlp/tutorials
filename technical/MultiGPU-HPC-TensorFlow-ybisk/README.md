@@ -24,6 +24,7 @@ This example code reads the number of GPUs from
 ```
 os.environ['CUDA_VISIBLE_DEVICES'] = '0,1'
 ```
+Please edit this line to match your current configuration.  '0' for 1 GPU, '0,1' for 2 GPUs, etc
 
 #### 3) Tensorboard
 This code also produces a graph in Tensorboard
