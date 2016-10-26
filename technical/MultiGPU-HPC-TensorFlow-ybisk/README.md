@@ -36,3 +36,5 @@ If you're not on the machine running tensorboard
     $ ssh -L 6006:127.0.0.1:6006 <desktop>
     navigate to http://127.0.0.1:6006
 ```
+
+![Example Screenshot](ScreenShot.png?raw=true "TensorBoard")
