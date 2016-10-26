@@ -5,13 +5,12 @@ Setup Python:
 ```
     $ export TF_BINARY_URL=https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow-0.10.0-cp27-none-linux_x86_64.whl
     $ pip install --user --upgrade $TF_BINARY_URL
-    < ssh into a gpu machine >
+    $ qsub -I -l walltime=0:30:00 -q isi -l nodes=1:gpus=2:shared
     $ source /usr/usc/cuda/7.5/setup.sh
     $ source /usr/usc/cuDNN/7.5-v5.1/setup.sh
     $ python
     >>> import tensorflow as tf
 ```
-
 
 #### 2) MultiGPU Code:
 Generate training data:   parity check
