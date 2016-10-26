@@ -1,3 +1,6 @@
+Setup Python:
+```source /usr/usc/python/2.7.8/setup.sh```
+
 #### 1) Install TensorFlow 0.10
 ```
     $ export TF_BINARY_URL=https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow-0.10.0-cp27-none-linux_x86_64.whl
