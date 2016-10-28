@@ -87,15 +87,14 @@ class Model(object):
     self.optimizer = tf.train.AdamOptimizer()
     for gpu in self.gpu_list:
       with tf.device('/gpu:%d' % gpu):
-        with tf.name_scope('gpu_%d' % gpu) as scope:
-          inp = tf.placeholder(tf.float32, shape=(None, self.max_length), name='source')
-          tar = tf.placeholder(tf.float32, shape=(None, 2), name='target')
-          c = self.createModel(inp, tar)
-          tf.get_variable_scope().reuse_variables()
-          tower_grads.append(self.optimizer.compute_gradients(c))
-          inputs.append(inp)
-          targets.append(tar)
-          costs.append(c)
+        inp = tf.placeholder(tf.float32, shape=(None, self.max_length), name='source')
+        tar = tf.placeholder(tf.float32, shape=(None, 2), name='target')
+        c = self.createModel(inp, tar)
+        tf.get_variable_scope().reuse_variables()
+        tower_grads.append(self.optimizer.compute_gradients(c))
+        inputs.append(inp)
+        targets.append(tar)
+        costs.append(c)
 
     self.inputs = tuple(inputs)
     self.targets = tuple(targets)
@@ -122,7 +121,7 @@ class Model(object):
       feed_dict = {self.inputs: inp, self.targets: tar}
       cost_summary, _, cost = self.sess.run([self.train_cost_summary, self.train_op, self.cost], feed_dict)
       self.writer.add_summary(cost_summary, step)
-      if step%1000 == 0:
+      if step%100 == 0:
         print step,"\t",cost
 
 
